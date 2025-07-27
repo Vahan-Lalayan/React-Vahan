@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import data from './data/data.json';
+import { HeroSection } from './sections/HeroSection';
+import { TrendingNowSection } from './sections/TrandingNowSection';
+import Sidebar from "./components/Sidebar"; // Adjust the path
 
 function App() {
+  const [activeMovie, setActiveMovie] = useState(data.Featured);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bg-black w-full min-h-screen overscroll-x-none">
+            <Sidebar />
+
+     <HeroSection movie={activeMovie} />
+
+
+      <div className="absolute bottom-5">
+        <TrendingNowSection
+          trendingData={data.TendingNow}
+          onMovieClick={setActiveMovie}
+        />
+      </div>
     </div>
   );
 }
